@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SWear</string>
+    <string name="title_activity_activity_main">SWear</string>
+
+
+    <!-- Text to display depending on weather -->
+    <!-- Use http://thesaurus.com/browse/raining as a source of additional words :) -->
+    <string name="swear_text_beggining">It is fucking</string>
+    <string name="swear_text_cold">"and cold"</string>
+    <string name="swear_text_hot">and hot</string>
+
+    <string name="swear_text_wind">windy</string>
+    <string name="swear_text_wind_heavy">hurricane</string>
+</resources>

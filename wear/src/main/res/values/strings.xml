@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">SWear</string>
+    <string name="watchface_name">SWear</string>
+    <string name="launcher_name">SWear</string>
+
+</resources>

@@ -1,0 +1,29 @@
+apply plugin: 'com.android.application'
+
+
+android {
+    compileSdkVersion 20
+    buildToolsVersion "20.0.0"
+
+    defaultConfig {
+        applicationId "pl.tajchert.swear"
+        minSdkVersion 20
+        targetSdkVersion 20
+        versionCode 1
+        versionName "0.1"
+    }
+    buildTypes {
+        release {
+            runProguard false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile 'com.android.support:support-v13:+'
+    compile 'com.google.android.support:wearable:+'
+    compile 'com.google.android.gms:play-services:5.0.+@aar'
+    compile project(':common')
+}
