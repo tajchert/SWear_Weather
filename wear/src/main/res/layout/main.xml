@@ -4,38 +4,17 @@
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@color/black">
 
-    <ImageView
-        android:id="@+id/imageViewClockFace"
+    <TextView
+        android:id="@+id/TextViewSwearContainer"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
+        android:text="null"
+        android:layout_margin="5dp"
+        android:textColor="@android:color/white"
         android:layout_alignParentTop="true" />
-
-
-    <ImageView
-        android:id="@+id/imageViewClockOverflow"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:rotation="-90"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true" />
-
-    <AnalogClock
-        android:id="@+id/analogClockActivity"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignBottom="@+id/imageViewClockOverflow"
-        android:layout_alignLeft="@+id/imageViewClockOverflow"
-        android:layout_alignRight="@+id/imageViewClockOverflow"
-        android:layout_alignTop="@+id/imageViewClockOverflow"
-        android:layout_centerVertical="true"
-        android:dial="@drawable/empty"
-        android:hand_hour="@drawable/hand_hour"
-        android:hand_minute="@drawable/hand_minute" />
 
 
 </RelativeLayout>

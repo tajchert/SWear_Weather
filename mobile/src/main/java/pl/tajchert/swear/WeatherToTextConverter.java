@@ -2,59 +2,10 @@ package pl.tajchert.swear;
 
 
 import android.content.Context;
-import android.util.Log;
-
 import java.util.HashMap;
-
 import pl.tajchert.swear.api.WeatherAPI;
 
 public class WeatherToTextConverter {
-
-    /*public static String getText(Context context, WeatherAPI weather) {
-        String response = "";
-        response = context.getString(R.string.swear_text_beggining);
-        response += " "+ getRainText(context, weather.getRain().get3h());
-        if(response.length() < 2){
-            //No rain, maybe wind?
-            response += getWindText(context, weather.getWind().getSpeed());
-            if(response.length() < 2){
-                //No wind and rain, maybe clouds?
-                response += getCloudsText(context, weather.getClouds().getAll());
-            }
-        }
-        response += " and "+ getRainText(context, weather.getRain().get3h());
-        return response;
-    }
-
-
-    private static String getRainText(Context context, double rain) {
-        //used http://wiki.sandaysoft.com/a/Rain_measurement as a source of data
-        if(rain < 0.75){
-            return "";
-        } else if( rain <= 50 ){
-            return context.getString(R.string.swear_text_rain);
-        } else if( rain > 50 ){
-            return context.getString(R.string.swear_text_rain_heavy);
-        } else {
-            return "";
-        }
-    }
-    private static String getWindText(Context context, double wind) {
-        wind = wind * 1.609344;//miles to kilometers
-        //used http://en.wikipedia.org/wiki/Beaufort_scale as a source of data
-        if(wind < 12){
-            return "";
-        } else if( wind < 18){
-            return context.getString(R.string.swear_text_wind);
-        } else if( wind > 18){
-            return context.getString(R.string.swear_text_wind_heavy);
-        } else {
-            return "";
-        }
-    }
-    private static String getCloudsText(Context context, double clouds) {
-        return "";
-    }*/
 
     public static String getText(Context context, WeatherAPI weatherNow){
         String response = "";
@@ -66,20 +17,16 @@ public class WeatherToTextConverter {
             //get gave null
             return "";
         }
-        //Temperature
-        /*if( (weatherNow.getMain().getTemp() / 273.15 ) < 0 ){
-            response += context.getString(R.string.swear_text_cold);
-        } else if ( (weatherNow.getMain().getTemp() / 273.15 ) > 28 ){
-            response += context.getString(R.string.swear_text_hot);
-        }*/
+        //Temperature if can fit and is not already there
+        if((!response.contains("hot") || !response.contains("cold")) && response.length() < 50) {
+            response += getTemperatureText(context, (weatherNow.getMain().getTemp() / 273.15));
+        }
         checkForAwesomeConditions(context, weatherNow, response);
         response += " outside.";
-        Log.d("SWEAR", "Response: " + response);
         return response;
     }
 
-
-    public static String getTextByCode(Context context, int code){
+    private static String getTextByCode(Context context, int code){
         HashMap<Integer, String> codes = new HashMap<Integer, String>();
         putCodesMeanings(codes);
         return " " + codes.get(code);
@@ -99,7 +46,14 @@ public class WeatherToTextConverter {
         }
     }
 
-
+    private static String getTemperatureText(Context context, double temp){
+        if( temp < 0 ){
+            return context.getString(R.string.swear_text_cold);
+        } else if ( temp > 28 ){
+            return context.getString(R.string.swear_text_hot);
+        }
+        return "";
+    }
 
     private static void putCodesMeanings(HashMap codes){
         codes.put(200, "thunderstorm with light rain");

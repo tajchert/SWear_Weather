@@ -25,6 +25,7 @@ public class DataLayerListenerService extends WearableListenerService {
 
     @Override
     public void onCreate() {
+        Log.d(TAG, "SWear onCreate");
         super.onCreate();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Wearable.API)
@@ -37,24 +38,28 @@ public class DataLayerListenerService extends WearableListenerService {
         Log.d(TAG, "onDataChanged");
         final List<DataEvent> events = FreezableUtils.freezeIterable(dataEvents);
         dataEvents.close();
-        /*if(!mGoogleApiClient.isConnected()) {
-            ConnectionResult connectionResult = mGoogleApiClient.blockingConnect(30, TimeUnit.SECONDS);
-            if (!connectionResult.isSuccess()) {
-                Log.e(TAG, "DataLayerListenerService failed to connect to GoogleApiClient.");
-                return;
-            }
-        }*/
         for (DataEvent event : events) {
             Uri uri = event.getDataItem().getUri();
             String path = uri.getPath();
             Log.d(TAG, "Update, path: " +path);
             if (Tools.WEAR_PATH.equals(path)) {
                 DataMapItem item = DataMapItem.fromDataItem(event.getDataItem());
-                String lastLocationText = item.getDataMap().getString(Tools.WEAR_KEY_SWEAR_TEXT);
-                if(lastLocationText != null) {
-                    Log.d(TAG, "Got content: " + lastLocationText);
-                    getBaseContext().getSharedPreferences(Tools.PREFS, MODE_PRIVATE).edit().putString(Tools.PREFS_LAST_LOCATION, lastLocationText).commit();
-                    getBaseContext().sendBroadcast(new Intent(Tools.DATA_CHANGED_ACTION));
+                String weatherText = item.getDataMap().getString(Tools.WEAR_KEY_SWEAR_TEXT);
+
+
+
+                if(weatherText != null) {
+                    weatherText = weatherText.replaceAll("\\d","");
+                    String oldWeatherText = getBaseContext().getSharedPreferences(Tools.PREFS, MODE_PRIVATE).getString(Tools.PREFS_KEY_SWEAR_TEXT, "");
+                    if(oldWeatherText.equals(weatherText)){
+                        return;
+                    }
+
+                    if(!weatherText.equals("")){
+                        Log.d(TAG, "weatherText: " + weatherText);
+                        getBaseContext().getSharedPreferences(Tools.PREFS, MODE_PRIVATE).edit().putString(Tools.PREFS_KEY_SWEAR_TEXT, weatherText).commit();
+                        getBaseContext().sendBroadcast(new Intent(Tools.DATA_CHANGED_ACTION));
+                    }
                 }
             }
         }

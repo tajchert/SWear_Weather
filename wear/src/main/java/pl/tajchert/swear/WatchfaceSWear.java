@@ -5,10 +5,9 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.ImageView;
+import android.widget.TextView;
 
 import pl.tajchert.swearcommon.Tools;
 
@@ -17,27 +16,28 @@ public class WatchfaceSWear extends Activity {
     private static final String TAG = WatchfaceSWear.class.getSimpleName();
     private BroadcastReceiver dataChangedReceiver;
     private IntentFilter dataChangedIntentFilter;
-    private Location lastLocation;
+    private TextView swearContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        ImageView imageClockFace = (ImageView) findViewById(R.id.imageViewClockFace);
-        imageClockFace.setImageDrawable(getResources().getDrawable(R.drawable.classic_background_one));
-
+        swearContainer = (TextView) findViewById(R.id.TextViewSwearContainer);
         dataChangedIntentFilter = new IntentFilter(Tools.DATA_CHANGED_ACTION);
+        swearContainer.setText("onCreate");
         dataChangedReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 Log.d(TAG, "DataChangedReceived: "+ intent.getAction());
+                swearContainer.setText("Received");
                 if (Tools.DATA_CHANGED_ACTION.equals(intent.getAction())) {
-                    String lastLocationText = WatchfaceSWear.this.getSharedPreferences(Tools.PREFS, MODE_PRIVATE).getString(Tools.PREFS_LAST_LOCATION, "");
-                    lastLocation = Tools.locationFromString(lastLocationText);
-                    Log.d(TAG, "Location: " + lastLocationText);
-                    Log.d(TAG, "Location: " + lastLocation);
-                    //imageOverflow.setImageBitmap(drawEvents(eventsSet));
+                    String swearText = WatchfaceSWear.this.getSharedPreferences(Tools.PREFS, MODE_PRIVATE).getString(Tools.PREFS_KEY_SWEAR_TEXT, "got null");
+                    if(swearText == null){
+                        return;
+                    }
+                    Log.d(TAG, "Swear got: " + swearText);
+                    swearContainer.setText(swearText);
                 }
             }
         };
@@ -59,7 +59,6 @@ public class WatchfaceSWear extends Activity {
     @Override
     protected void onPause() {
         super.onPause();
-        //imageOverflow.setImageResource(R.drawable.kit_kat_hand_dial);
     }
 
     @Override

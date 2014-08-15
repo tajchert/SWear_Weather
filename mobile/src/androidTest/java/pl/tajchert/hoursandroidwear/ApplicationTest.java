@@ -1,4 +1,4 @@
-package pl.tajchert.swear;
+package pl.tajchert.hoursandroidwear;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

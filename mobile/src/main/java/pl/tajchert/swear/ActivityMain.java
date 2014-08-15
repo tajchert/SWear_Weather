@@ -4,8 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import pl.tajchert.swearcommon.Tools;
-
 
 public class ActivityMain extends Activity {
     private static final String TAG = ActivityMain.class.getSimpleName();
@@ -33,13 +31,6 @@ public class ActivityMain extends Activity {
         super.onDestroy();
     }
 
-    private void sendData(String data) {
-        Intent mIntent = new Intent(this, UpdateService.class);
-        Bundle mBundle = new Bundle();
-        mBundle.putString(Tools.KEY_BUNDLE_LOCATION, data);
-        mIntent.putExtras(mBundle);
-        ActivityMain.this.startService(mIntent);
-    }
 
 
 }

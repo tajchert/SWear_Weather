@@ -18,9 +18,9 @@
             android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="pl.tajchert.swear.WatchfaceSWear"
+            android:name=".WatchfaceSWear"
             android:allowEmbedded="true"
-            android:label="@string/watchface_name"
+            android:label="Swear"
             android:exported="true"
             android:taskAffinity=""
             android:theme="@android:style/Theme.DeviceDefault.NoActionBar">
@@ -32,10 +32,7 @@
                 <category android:name="com.google.android.clockwork.home.category.HOME_BACKGROUND" />
             </intent-filter>
         </activity>
-
-
-
-        <service android:name="pl.tajchert.swear.DataLayerListenerService" >
+        <service android:name=".DataLayerListenerService" >
             <intent-filter>
                 <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
             </intent-filter>

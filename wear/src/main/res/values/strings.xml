@@ -5,4 +5,8 @@
     <string name="watchface_name">SWear</string>
     <string name="launcher_name">SWear</string>
 
+    <string name="swear_null">Why so nervous, chill the fuck out.</string>
+    <string name="swear_error">Fuck, some error.</string>
+    <string name="swear_no_location">Fuck, slow down, cannot get your location.</string>
+
 </resources>
