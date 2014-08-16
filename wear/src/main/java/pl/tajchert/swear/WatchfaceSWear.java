@@ -34,10 +34,6 @@ public class WatchfaceSWear extends Activity {
 
         swearContainer = (AutoSizeTextView) findViewById(R.id.TextViewSwearContainer);
         dataChangedIntentFilter = new IntentFilter(Tools.DATA_CHANGED_ACTION);
-        //For safety, as first refresh sometimes didn't happen TODO for later
-        if(timeToRefresh()){
-            sendNotificationToMobile();
-        }
 
         dataChangedReceiver = new BroadcastReceiver() {
             @Override
@@ -108,7 +104,7 @@ public class WatchfaceSWear extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(timeToRefresh()){
+        if(timeToRefresh()){//TODO check why on first run it doesnt synchronize
             sendNotificationToMobile();
         }
     }
