@@ -14,4 +14,6 @@ public class Tools {
     
     public static final String WEAR_PATH_ACTION_UPDATE = "/swear_data_from_watch";
     public static final String WEAR_ACTION_UPDATE = "please_update_swear_text";
+
+    public static final int REFRESH_INTERVAL = 1800000;//30min
 }

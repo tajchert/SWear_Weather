@@ -9,6 +9,7 @@ import android.text.Layout.Alignment;
 import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.SparseIntArray;
 import android.util.TypedValue;
 import android.widget.TextView;
@@ -31,6 +32,8 @@ public class AutoSizeTextView extends TextView {
          */
         public int onTestSize(int suggestedSize, RectF availableSpace);
     }
+
+    private static final String TAG = "AutoSizeTextView";
 
     private RectF mTextRect = new RectF();
 
@@ -144,6 +147,7 @@ public class AutoSizeTextView extends TextView {
         mMaxTextSize = TypedValue.applyDimension(unit, size,
                 r.getDisplayMetrics());
         mTextCachedSizes.clear();
+        Log.d(TAG, "TEXT SIZE:" + mMaxTextSize);
         adjustTextSize(getText().toString());
     }
 
@@ -253,8 +257,15 @@ public class AutoSizeTextView extends TextView {
         }
         size = binarySearch(start, end, sizeTester, availableSpace);
         mTextCachedSizes.put(key, size);
+        setLineSpacing(findBestLineSpacing(size), 1f);
         return size;
     }
+    private static int findBestLineSpacing(int fontSize){
+        int spacing = 0;
+        spacing = fontSize/10 * (-1);
+        return  spacing;
+    }
+
 
     private static int binarySearch(int start, int end, SizeTester sizeTester,
                                     RectF availableSpace) {

@@ -47,7 +47,6 @@ public class DataLayerListenerService extends WearableListenerService {
                 Log.d(TAG, "got: " + weatherText);
                 if(weatherText != null) {
                     weatherText = weatherText.replaceAll("\\d","");
-
                     if(!weatherText.equals("")){
                         getBaseContext().getSharedPreferences(Tools.PREFS, MODE_PRIVATE).edit().putString(Tools.PREFS_KEY_SWEAR_TEXT, weatherText).commit();
                         getBaseContext().sendBroadcast(new Intent(Tools.DATA_CHANGED_ACTION));

@@ -9,8 +9,8 @@ android {
         applicationId "pl.tajchert.swear"
         minSdkVersion 20
         targetSdkVersion 20
-        versionCode 2
-        versionName "0.1"
+        versionCode 3
+        versionName "0.3"
     }
     buildTypes {
         release {
@@ -23,5 +23,6 @@ android {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.google.android.gms:play-services-wearable:+'
+    compile 'com.google.android.support:wearable:+'
     compile project(':common')
 }

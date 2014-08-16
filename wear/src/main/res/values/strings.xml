@@ -2,10 +2,14 @@
 <resources>
 
     <string name="app_name">SWear</string>
-    <string name="watchface_name">SWear</string>
-    <string name="launcher_name">SWear</string>
+    <string name="app_watchface_name">SWear</string>
 
+    <!-- This is voice command at the same time -->
+    <string name="title_activity_main">SWear</string>
     <string name="swear_null">Why so nervous, chill the fuck out.</string>
     <string name="swear_error">"Fuck, no location or no Internet.</string>
+    <string name="title_activity_my">MyActivity</string>
+    <string name="hello_round">Hello Round World!</string>
+    <string name="hello_square">Hello Square World!</string>
 
 </resources>
