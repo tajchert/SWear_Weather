@@ -33,7 +33,6 @@ import retrofit.client.Response;
 public class UpdateService extends Service {
     private static final String TAG = UpdateService.class.getSimpleName();
 
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -50,7 +49,6 @@ public class UpdateService extends Service {
         if(loc != null){
             getAPIContent(loc);
         }
-        stopSelf();
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -158,6 +156,7 @@ public class UpdateService extends Service {
                 public void onResult(DataApi.DataItemResult dataItemResult) {
                     Log.d(TAG, "Sent: " + dataItemResult.toString());
                     mGoogleAppiClient.disconnect();
+                    stopSelf();
                 }
             });
 

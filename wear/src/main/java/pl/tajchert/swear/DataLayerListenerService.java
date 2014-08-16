@@ -46,8 +46,6 @@ public class DataLayerListenerService extends WearableListenerService {
                 DataMapItem item = DataMapItem.fromDataItem(event.getDataItem());
                 String weatherText = item.getDataMap().getString(Tools.WEAR_KEY_SWEAR_TEXT);
 
-
-
                 if(weatherText != null) {
                     weatherText = weatherText.replaceAll("\\d","");
                     String oldWeatherText = getBaseContext().getSharedPreferences(Tools.PREFS, MODE_PRIVATE).getString(Tools.PREFS_KEY_SWEAR_TEXT, "");

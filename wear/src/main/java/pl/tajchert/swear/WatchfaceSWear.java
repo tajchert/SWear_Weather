@@ -9,6 +9,16 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.PendingResult;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.wearable.DataApi;
+import com.google.android.gms.wearable.PutDataMapRequest;
+import com.google.android.gms.wearable.PutDataRequest;
+import com.google.android.gms.wearable.Wearable;
+
+import java.util.Calendar;
+
 import pl.tajchert.swearcommon.Tools;
 
 
@@ -25,15 +35,17 @@ public class WatchfaceSWear extends Activity {
 
         swearContainer = (TextView) findViewById(R.id.TextViewSwearContainer);
         dataChangedIntentFilter = new IntentFilter(Tools.DATA_CHANGED_ACTION);
-        swearContainer.setText("onCreate");
+        sendNotificationToMobile();
         dataChangedReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
                 Log.d(TAG, "DataChangedReceived: "+ intent.getAction());
-                swearContainer.setText("Received");
                 if (Tools.DATA_CHANGED_ACTION.equals(intent.getAction())) {
                     String swearText = WatchfaceSWear.this.getSharedPreferences(Tools.PREFS, MODE_PRIVATE).getString(Tools.PREFS_KEY_SWEAR_TEXT, "got null");
                     if(swearText == null){
+                        if(swearContainer.getText().equals("")){
+                            sendNotificationToMobile();
+                        }
                         return;
                     }
                     Log.d(TAG, "Swear got: " + swearText);
@@ -41,7 +53,28 @@ public class WatchfaceSWear extends Activity {
                 }
             }
         };
+    }
 
+    private void sendNotificationToMobile(){
+        Log.d(TAG, "sendNotificationToMobile");
+        //Send empty string to ask phone to refresh weather data
+        final GoogleApiClient googleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Wearable.API)
+                .build();
+        googleApiClient.connect();
+        String value = "update_request";
+        value = value +  Calendar.getInstance().getTimeInMillis();
+        PutDataMapRequest dataMap = PutDataMapRequest.create(Tools.WEAR_PATH_ACTION_UPDATE);
+        dataMap.getDataMap().putString(Tools.WEAR_ACTION_UPDATE, value);
+        PutDataRequest request = dataMap.asPutDataRequest();
+        PendingResult<DataApi.DataItemResult> pendingResult = Wearable.DataApi.putDataItem(googleApiClient, request);
+        pendingResult.setResultCallback(new ResultCallback<DataApi.DataItemResult>() {
+            @Override
+            public void onResult(DataApi.DataItemResult dataItemResult) {
+                Log.d(TAG, "Sent: " + dataItemResult.toString());
+                googleApiClient.disconnect();
+            }
+        });
     }
 
     @Override
