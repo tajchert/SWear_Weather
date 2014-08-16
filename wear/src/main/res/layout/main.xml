@@ -32,6 +32,13 @@
         android:textSize="500sp"
         android:textColor="@android:color/white"
         android:layout_alignParentTop="true" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/refreshCircle"
+        android:src="@drawable/circle_white"
+        android:layout_centerInParent="true"
+        android:visibility="gone"/>
 
 
 </RelativeLayout>

@@ -7,6 +7,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -27,11 +31,16 @@ public class ActivityWatchface extends Activity {
     private IntentFilter dataChangedIntentFilter;
     private AutoSizeTextView swearContainer;
 
+    private ImageView refreshCircle;
+    private Animation refreshAnim;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         swearContainer = (AutoSizeTextView) findViewById(R.id.TextViewSwearContainer);
+        refreshCircle = (ImageView) findViewById(R.id.refreshCircle);
+        refreshAnim = AnimationUtils.loadAnimation(this, R.anim.refresh_animation);
 
         dataChangedIntentFilter = new IntentFilter(Tools.DATA_CHANGED_ACTION);
         sendNotificationToMobile();
@@ -44,7 +53,9 @@ public class ActivityWatchface extends Activity {
                     if(swearText == null){
                         return;
                     }
-                    swearContainer.setText(swearText);
+                    if(refreshAnim != null){
+                        refreshAnimation(refreshAnim, swearText);
+                    }
                     ActivityWatchface.this.getSharedPreferences(Tools.PREFS, MODE_PRIVATE).edit().putLong(Tools.PREFS_KEY_TIME_LAST_UPDATE, Calendar.getInstance().getTimeInMillis()).commit();
                 }
             }
@@ -107,5 +118,27 @@ public class ActivityWatchface extends Activity {
         if(timeToRefresh()){
             sendNotificationToMobile();
         }
+    }
+
+    private void refreshAnimation(Animation animation, final String textToShow){
+        refreshCircle.setVisibility(View.VISIBLE);
+        animation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation arg0) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation arg0) {
+            }
+
+            @Override
+            public void onAnimationEnd(Animation arg0) {
+                if (swearContainer != null) {
+                    swearContainer.setText(textToShow);
+                }
+                refreshCircle.setVisibility(View.GONE);
+            }
+        });
+        refreshCircle.startAnimation(animation);
     }
 }
