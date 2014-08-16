@@ -7,6 +7,8 @@
     <!-- Text to display depending on weather -->
     <!-- Use http://thesaurus.com/browse/raining as a source of additional words :) -->
     <string name="swear_text_beggining">It is fucking</string>
-    <string name="swear_text_cold">"and cold"</string>
+    <string name="swear_text_cold">and cold</string>
     <string name="swear_text_hot">and hot</string>
+
+    <string name="swear_text_awesome">"It is fucking awesome</string>
 </resources>

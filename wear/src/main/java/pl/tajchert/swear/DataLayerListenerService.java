@@ -45,13 +45,9 @@ public class DataLayerListenerService extends WearableListenerService {
             if (Tools.WEAR_PATH.equals(path)) {
                 DataMapItem item = DataMapItem.fromDataItem(event.getDataItem());
                 String weatherText = item.getDataMap().getString(Tools.WEAR_KEY_SWEAR_TEXT);
-
+                Log.d(TAG, "got: " + weatherText);
                 if(weatherText != null) {
                     weatherText = weatherText.replaceAll("\\d","");
-                    String oldWeatherText = getBaseContext().getSharedPreferences(Tools.PREFS, MODE_PRIVATE).getString(Tools.PREFS_KEY_SWEAR_TEXT, "");
-                    if(oldWeatherText.equals(weatherText)){
-                        return;
-                    }
 
                     if(!weatherText.equals("")){
                         Log.d(TAG, "weatherText: " + weatherText);

@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.TextView;
 
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.PendingResult;
@@ -26,16 +25,20 @@ public class WatchfaceSWear extends Activity {
     private static final String TAG = WatchfaceSWear.class.getSimpleName();
     private BroadcastReceiver dataChangedReceiver;
     private IntentFilter dataChangedIntentFilter;
-    private TextView swearContainer;
+    private AutoSizeTextView swearContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 
-        swearContainer = (TextView) findViewById(R.id.TextViewSwearContainer);
+        swearContainer = (AutoSizeTextView) findViewById(R.id.TextViewSwearContainer);
         dataChangedIntentFilter = new IntentFilter(Tools.DATA_CHANGED_ACTION);
-        sendNotificationToMobile();
+        //For safety, as first refresh sometimes didn't happen TODO for later
+        if(timeToRefresh()){
+            sendNotificationToMobile();
+        }
+
         dataChangedReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
@@ -43,13 +46,11 @@ public class WatchfaceSWear extends Activity {
                 if (Tools.DATA_CHANGED_ACTION.equals(intent.getAction())) {
                     String swearText = WatchfaceSWear.this.getSharedPreferences(Tools.PREFS, MODE_PRIVATE).getString(Tools.PREFS_KEY_SWEAR_TEXT, "got null");
                     if(swearText == null){
-                        if(swearContainer.getText().equals("")){
-                            sendNotificationToMobile();
-                        }
                         return;
                     }
                     Log.d(TAG, "Swear got: " + swearText);
                     swearContainer.setText(swearText);
+                    WatchfaceSWear.this.getSharedPreferences(Tools.PREFS, MODE_PRIVATE).edit().putLong(Tools.PREFS_KEY_TIME_LAST_UPDATE, Calendar.getInstance().getTimeInMillis()).commit();
                 }
             }
         };
@@ -77,6 +78,16 @@ public class WatchfaceSWear extends Activity {
         });
     }
 
+    private boolean timeToRefresh(){
+        if(swearContainer != null && swearContainer.getText().equals(WatchfaceSWear.this.getString(R.string.swear_null))){
+            return true;
+        }
+        if(Calendar.getInstance().getTimeInMillis() - WatchfaceSWear.this.getSharedPreferences(Tools.PREFS, MODE_PRIVATE).getLong(Tools.PREFS_KEY_TIME_LAST_UPDATE, 0) > (1800000)) {
+            return true;
+        }
+        return false;
+    }
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -97,5 +108,8 @@ public class WatchfaceSWear extends Activity {
     @Override
     protected void onResume() {
         super.onResume();
+        if(timeToRefresh()){
+            sendNotificationToMobile();
+        }
     }
 }

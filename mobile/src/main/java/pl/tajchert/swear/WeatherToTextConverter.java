@@ -2,7 +2,9 @@ package pl.tajchert.swear;
 
 
 import android.content.Context;
+
 import java.util.HashMap;
+
 import pl.tajchert.swear.api.WeatherAPI;
 
 public class WeatherToTextConverter {
@@ -21,7 +23,7 @@ public class WeatherToTextConverter {
         if((!response.contains("hot") || !response.contains("cold")) && response.length() < 50) {
             response += getTemperatureText(context, (weatherNow.getMain().getTemp() / 273.15));
         }
-        checkForAwesomeConditions(context, weatherNow, response);
+        response = checkForAwesomeConditions(context, weatherNow, response);
         response += " outside.";
         return response;
     }
@@ -32,18 +34,19 @@ public class WeatherToTextConverter {
         return " " + codes.get(code);
     }
 
-    private static void checkForAwesomeConditions(Context context, WeatherAPI weatherNow, String response){
+    private static String checkForAwesomeConditions(Context context, WeatherAPI weatherNow, String response){
         int code = 0;
         try {
             code = weatherNow.getWeather().get(0).getId();
         } catch (Exception e) {
             //get gave null
-            return;
+            return response;
         }
         double temp = weatherNow.getMain().getTemp() / 273.15;
         if(( code == 800 || code == 801 ) && temp >= 21 && temp <= 24 ) {
-            response = "It is fucking awesome";
+            response = context.getString(R.string.swear_text_awesome);
         }
+        return  response;
     }
 
     private static String getTemperatureText(Context context, double temp){
