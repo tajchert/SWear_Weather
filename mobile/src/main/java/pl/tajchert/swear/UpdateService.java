@@ -46,9 +46,7 @@ public class UpdateService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         Location loc = getLastLocation();
-        if(loc != null){
-            getAPIContent(loc);
-        }
+        getAPIContent(loc);
         return super.onStartCommand(intent, flags, startId);
     }
 
@@ -72,6 +70,7 @@ public class UpdateService extends Service {
 
     public void getAPIContent(Location location){
         if(location == null){
+            new SendWeatherTextTask().execute();
             return;
         }
         RestAdapter restAdapter = new RestAdapter.Builder()
@@ -102,12 +101,14 @@ public class UpdateService extends Service {
                 }
                     return WeatherToTextConverter.getText(UpdateService.this, currentWeather);
             } else {
-                return null;
+
+                return UpdateService.this.getString(R.string.swear_error);
             }
         }
         @Override
         protected void onPostExecute(String result) {
             if(result == null){
+                sendData(Tools.WEAR_KEY_SWEAR_TEXT, UpdateService.this.getString(R.string.swear_error));
                 return;
             }
             sendData(Tools.WEAR_KEY_SWEAR_TEXT, result);
@@ -119,16 +120,13 @@ public class UpdateService extends Service {
                     .addConnectionCallbacks(new GoogleApiClient.ConnectionCallbacks() {
                         @Override
                         public void onConnected(Bundle connectionHint) {
-                            Log.d(TAG, "onConnected");
                         }
                         @Override
                         public void onConnectionSuspended(int cause) {
-                            Log.d(TAG, "onConnectionSuspended");
                         }
                     }).addOnConnectionFailedListener(new GoogleApiClient.OnConnectionFailedListener() {
                         @Override
                         public void onConnectionFailed(ConnectionResult result) {
-                            Log.d(TAG, "onConnectionFailed");
                         }
                     })
                     .addApi(Wearable.API)
@@ -144,13 +142,11 @@ public class UpdateService extends Service {
                 //Empty string, do not send, 3 is for 'hot' word
                 return;
             }
-            Log.d(TAG, "Content to send: " + value);
             value = value +  Calendar.getInstance().getTimeInMillis();
             PutDataMapRequest dataMap = PutDataMapRequest.create(Tools.WEAR_PATH);
             dataMap.getDataMap().putString(key, value);
             PutDataRequest request = dataMap.asPutDataRequest();
             PendingResult<DataApi.DataItemResult> pendingResult = Wearable.DataApi.putDataItem(mGoogleAppiClient, request);
-            Log.d(TAG, "Trying to send: " + value);
             pendingResult.setResultCallback(new ResultCallback<DataApi.DataItemResult>() {
                 @Override
                 public void onResult(DataApi.DataItemResult dataItemResult) {

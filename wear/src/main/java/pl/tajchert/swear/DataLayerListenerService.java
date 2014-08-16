@@ -25,7 +25,6 @@ public class DataLayerListenerService extends WearableListenerService {
 
     @Override
     public void onCreate() {
-        Log.d(TAG, "SWear onCreate");
         super.onCreate();
         mGoogleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Wearable.API)
@@ -50,7 +49,6 @@ public class DataLayerListenerService extends WearableListenerService {
                     weatherText = weatherText.replaceAll("\\d","");
 
                     if(!weatherText.equals("")){
-                        Log.d(TAG, "weatherText: " + weatherText);
                         getBaseContext().getSharedPreferences(Tools.PREFS, MODE_PRIVATE).edit().putString(Tools.PREFS_KEY_SWEAR_TEXT, weatherText).commit();
                         getBaseContext().sendBroadcast(new Intent(Tools.DATA_CHANGED_ACTION));
                     }
@@ -60,13 +58,9 @@ public class DataLayerListenerService extends WearableListenerService {
     }
 
     @Override
-    public void onPeerConnected(Node peer) {
-        Log.d(TAG, "onPeerConnected: " + peer);
-    }
+    public void onPeerConnected(Node peer) {}
 
     @Override
-    public void onPeerDisconnected(Node peer) {
-        Log.d(TAG, "onPeerDisconnected: " + peer);
-    }
+    public void onPeerDisconnected(Node peer){}
 
 }

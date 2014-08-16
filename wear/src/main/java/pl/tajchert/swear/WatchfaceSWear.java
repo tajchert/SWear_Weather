@@ -38,13 +38,11 @@ public class WatchfaceSWear extends Activity {
         dataChangedReceiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                Log.d(TAG, "DataChangedReceived: "+ intent.getAction());
                 if (Tools.DATA_CHANGED_ACTION.equals(intent.getAction())) {
                     String swearText = WatchfaceSWear.this.getSharedPreferences(Tools.PREFS, MODE_PRIVATE).getString(Tools.PREFS_KEY_SWEAR_TEXT, "got null");
                     if(swearText == null){
                         return;
                     }
-                    Log.d(TAG, "Swear got: " + swearText);
                     swearContainer.setText(swearText);
                     WatchfaceSWear.this.getSharedPreferences(Tools.PREFS, MODE_PRIVATE).edit().putLong(Tools.PREFS_KEY_TIME_LAST_UPDATE, Calendar.getInstance().getTimeInMillis()).commit();
                 }
@@ -53,7 +51,6 @@ public class WatchfaceSWear extends Activity {
     }
 
     private void sendNotificationToMobile(){
-        Log.d(TAG, "sendNotificationToMobile");
         //Send empty string to ask phone to refresh weather data
         final GoogleApiClient googleApiClient = new GoogleApiClient.Builder(this)
                 .addApi(Wearable.API)
@@ -75,7 +72,7 @@ public class WatchfaceSWear extends Activity {
     }
 
     private boolean timeToRefresh(){
-        if(swearContainer != null && swearContainer.getText().equals(WatchfaceSWear.this.getString(R.string.swear_null))){
+        if(swearContainer != null && swearContainer.getText().equals(WatchfaceSWear.this.getString(R.string.swear_null)) || swearContainer.getText().equals(WatchfaceSWear.this.getString(R.string.swear_null))){
             return true;
         }
         if(Calendar.getInstance().getTimeInMillis() - WatchfaceSWear.this.getSharedPreferences(Tools.PREFS, MODE_PRIVATE).getLong(Tools.PREFS_KEY_TIME_LAST_UPDATE, 0) > (1800000)) {
