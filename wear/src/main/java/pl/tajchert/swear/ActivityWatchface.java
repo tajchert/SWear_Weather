@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -44,6 +45,9 @@ public class ActivityWatchface extends Activity {
 
         dataChangedIntentFilter = new IntentFilter(Tools.DATA_CHANGED_ACTION);
         sendNotificationToMobile();
+        if(refreshAnim != null){
+            refreshAnimation(refreshAnim, ActivityWatchface.this.getString(R.string.swear_null));
+        }
 
         dataChangedReceiver = new BroadcastReceiver() {
             @Override
@@ -120,11 +124,19 @@ public class ActivityWatchface extends Activity {
         }
     }
 
-    private void refreshAnimation(Animation animation, final String textToShow){
+    private void refreshAnimation(final Animation animation, final String textToShow){
         refreshCircle.setVisibility(View.VISIBLE);
         animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation arg0) {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    public void run() {
+                        if (swearContainer != null) {
+                            swearContainer.setText(textToShow);
+                        }
+                    }
+                }, (animation.getDuration() + 200));
             }
 
             @Override
@@ -133,9 +145,6 @@ public class ActivityWatchface extends Activity {
 
             @Override
             public void onAnimationEnd(Animation arg0) {
-                if (swearContainer != null) {
-                    swearContainer.setText(textToShow);
-                }
                 refreshCircle.setVisibility(View.GONE);
             }
         });

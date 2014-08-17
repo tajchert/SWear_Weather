@@ -257,7 +257,7 @@ public class AutoSizeTextView extends TextView {
         }
         size = binarySearch(start, end, sizeTester, availableSpace);
         mTextCachedSizes.put(key, size);
-        setLineSpacing(findBestLineSpacing(size), 1f);
+        //setLineSpacing(findBestLineSpacing(size), 1f);
         return size;
     }
     private static int findBestLineSpacing(int fontSize){
