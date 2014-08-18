@@ -32,7 +32,7 @@ public class UpdateFromWear extends WearableListenerService {
             String path = uri.getPath();
             if (Tools.WEAR_PATH_ACTION_UPDATE.equals(path)) {
                 DataMapItem item = DataMapItem.fromDataItem(event.getDataItem());
-                String weatherText = item.getDataMap().getString(Tools.WEAR_ACTION_UPDATE);
+                //String weatherText = item.getDataMap().getString(Tools.WEAR_ACTION_UPDATE);//TODO if needed to differ what to do
                 Intent mIntent = new Intent(this, UpdateService.class);
                 UpdateFromWear.this.startService(mIntent);
             }

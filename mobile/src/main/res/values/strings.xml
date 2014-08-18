@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">SWear Weather</string>
-    <string name="title_activity_activity_main">SWear Weather</string>
 
     <!-- Text to display depending on weather -->
     <!-- Use http://thesaurus.com/browse/raining as a source of additional words :) -->

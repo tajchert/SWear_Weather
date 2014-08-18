@@ -20,7 +20,6 @@ import com.google.android.gms.wearable.PutDataRequest;
 import com.google.android.gms.wearable.Wearable;
 
 import java.util.Calendar;
-import java.util.List;
 
 import pl.tajchert.swear.api.IWeatherAPI;
 import pl.tajchert.swear.api.WeatherAPI;
@@ -32,16 +31,6 @@ import retrofit.client.Response;
 
 public class UpdateService extends Service {
     private static final String TAG = UpdateService.class.getSimpleName();
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
@@ -56,16 +45,10 @@ public class UpdateService extends Service {
     }
 
     private Location getLastLocation() {
-        LocationManager lm = (LocationManager) UpdateService.this.getSystemService(Context.LOCATION_SERVICE);
-        List<String> providers = lm.getProviders(true);
-        Location best = null;
-
-        for (int i=providers.size()-1; i>=0; i--) {
-            if(best == null || (lm.getLastKnownLocation(providers.get(i)) != null && best.getAccuracy() > lm.getLastKnownLocation(providers.get(i)).getAccuracy())){
-                best = lm.getLastKnownLocation(providers.get(i));
-            }
-        }
-        return best;
+        LocationManager locationManager = (LocationManager) UpdateService.this.getSystemService(Context.LOCATION_SERVICE);
+        String locationProvider = LocationManager.NETWORK_PROVIDER;
+        Location lastKnownLocation = locationManager.getLastKnownLocation(locationProvider);
+        return lastKnownLocation;
     }
 
     public void getAPIContent(Location location){

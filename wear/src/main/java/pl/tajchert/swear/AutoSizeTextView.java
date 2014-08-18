@@ -18,7 +18,7 @@ import android.widget.TextView;
  * Thanks to http://stackoverflow.com/a/17786051/1717276
  */
 
-public class AutoSizeTextView extends TextView {
+class AutoSizeTextView extends TextView {
     private interface SizeTester {
         /**
          *

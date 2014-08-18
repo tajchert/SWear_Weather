@@ -43,11 +43,12 @@ public class ActivityWatchface extends Activity {
         refreshCircle = (ImageView) findViewById(R.id.refreshCircle);
         refreshAnim = AnimationUtils.loadAnimation(this, R.anim.refresh_animation);
 
-        dataChangedIntentFilter = new IntentFilter(Tools.DATA_CHANGED_ACTION);
-        sendNotificationToMobile();
         if(refreshAnim != null){
             refreshAnimation(refreshAnim, ActivityWatchface.this.getString(R.string.swear_null));
         }
+
+        dataChangedIntentFilter = new IntentFilter(Tools.DATA_CHANGED_ACTION);
+        sendNotificationToMobile();
 
         dataChangedReceiver = new BroadcastReceiver() {
             @Override
@@ -57,7 +58,7 @@ public class ActivityWatchface extends Activity {
                     if(swearText == null){
                         return;
                     }
-                    if(refreshAnim != null){
+                    if(refreshAnim != null && !swearContainer.getText().equals(swearText)){
                         refreshAnimation(refreshAnim, swearText);
                     }
                     ActivityWatchface.this.getSharedPreferences(Tools.PREFS, MODE_PRIVATE).edit().putLong(Tools.PREFS_KEY_TIME_LAST_UPDATE, Calendar.getInstance().getTimeInMillis()).commit();
@@ -89,13 +90,10 @@ public class ActivityWatchface extends Activity {
     }
 
     private boolean timeToRefresh(){
-        if(swearContainer != null && swearContainer.getText().equals(ActivityWatchface.this.getString(R.string.swear_null)) || swearContainer.getText().equals(ActivityWatchface.this.getString(R.string.swear_null))){
+        if(swearContainer != null && swearContainer.getText() != null && swearContainer.getText().equals(ActivityWatchface.this.getString(R.string.swear_null)) || swearContainer.getText().equals(ActivityWatchface.this.getString(R.string.swear_null))){
             return true;
         }
-        if(Calendar.getInstance().getTimeInMillis() - ActivityWatchface.this.getSharedPreferences(Tools.PREFS, MODE_PRIVATE).getLong(Tools.PREFS_KEY_TIME_LAST_UPDATE, 0) > (Tools.REFRESH_INTERVAL)) {
-            return true;
-        }
-        return false;
+        return Calendar.getInstance().getTimeInMillis() - ActivityWatchface.this.getSharedPreferences(Tools.PREFS, MODE_PRIVATE).getLong(Tools.PREFS_KEY_TIME_LAST_UPDATE, 0) > (Tools.REFRESH_INTERVAL);
     }
 
     @Override
@@ -109,12 +107,6 @@ public class ActivityWatchface extends Activity {
         super.onDestroy();
         this.unregisterReceiver(dataChangedReceiver);
     }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-    }
-
 
     @Override
     protected void onResume() {
@@ -136,7 +128,7 @@ public class ActivityWatchface extends Activity {
                             swearContainer.setText(textToShow);
                         }
                     }
-                }, (animation.getDuration() + 200));
+                }, (animation.getDuration() + 300));
             }
 
             @Override

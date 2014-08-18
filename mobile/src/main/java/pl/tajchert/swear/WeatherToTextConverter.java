@@ -10,11 +10,10 @@ import pl.tajchert.swear.api.WeatherAPI;
 public class WeatherToTextConverter {
 
     public static String getText(Context context, WeatherAPI weatherNow){
-        String response = "";
-        response = context.getString(R.string.swear_text_beggining);
+        String response =  context.getString(R.string.swear_text_beggining);
         //By weather code, from openweathermap.org/weather-conditions
         try {
-            response += getTextByCode(context, weatherNow.getWeather().get(0).getId());
+            response += getTextByCode(weatherNow.getWeather().get(0).getId());
         } catch (Exception e) {
             //get gave null
             return "";
@@ -28,14 +27,14 @@ public class WeatherToTextConverter {
         return response;
     }
 
-    private static String getTextByCode(Context context, int code){
+    private static String getTextByCode(int code){
         HashMap<Integer, String> codes = new HashMap<Integer, String>();
         putCodesMeanings(codes);
         return " " + codes.get(code);
     }
 
     private static String checkForAwesomeConditions(Context context, WeatherAPI weatherNow, String response){
-        int code = 0;
+        int code;
         try {
             code = weatherNow.getWeather().get(0).getId();
         } catch (Exception e) {
@@ -58,7 +57,7 @@ public class WeatherToTextConverter {
         return "";
     }
 
-    private static void putCodesMeanings(HashMap codes){
+    private static void putCodesMeanings(HashMap<Integer, String> codes){
         codes.put(200, "thunderstorm with rain");
         codes.put(201, "thunderstorm with rain");
         codes.put(202, "thunderstorm with heavy rain");

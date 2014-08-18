@@ -60,7 +60,7 @@ public class TextViewAutoResized extends TextView {
 
     // Default constructor when inflating from XML file
     public TextViewAutoResized(Context context, AttributeSet attrs) {
-        this(context, attrs, 0);
+        this(context, null, 0);
     }
 
     // Default constructor override

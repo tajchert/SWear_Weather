@@ -21,7 +21,7 @@ import pl.tajchert.swearcommon.Tools;
 public class DataLayerListenerService extends WearableListenerService {
 
     private static final String TAG = DataLayerListenerService.class.getSimpleName();
-    GoogleApiClient mGoogleApiClient;
+    private GoogleApiClient mGoogleApiClient;
 
     @Override
     public void onCreate() {
