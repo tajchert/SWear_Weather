@@ -10,7 +10,7 @@ import pl.tajchert.swear.api.WeatherAPI;
 public class WeatherToTextConverter {
 
     public static String getText(Context context, WeatherAPI weatherNow){
-        String response =  context.getString(R.string.swear_text_beggining);
+        String response =  "";
         //By weather code, from openweathermap.org/weather-conditions
         try {
             response += getTextByCode(weatherNow.getWeather().get(0).getId());
@@ -18,12 +18,7 @@ public class WeatherToTextConverter {
             //get gave null
             return "";
         }
-        //Temperature if can fit and is not already there
-        if((!response.contains("hot") || !response.contains("cold")) && response.length() < 50) {
-            response += getTemperatureText(context, (weatherNow.getMain().getTemp() / 273.15));
-        }
         response = checkForAwesomeConditions(context, weatherNow, response);
-        response += " outside.";
         return response;
     }
 
@@ -45,7 +40,7 @@ public class WeatherToTextConverter {
         if(( code == 800 || code == 801 ) && temp >= 21 && temp <= 24 ) {
             response = context.getString(R.string.swear_text_awesome);
         }
-        return  response;
+        return response;
     }
 
     private static String getTemperatureText(Context context, double temp){
@@ -58,80 +53,80 @@ public class WeatherToTextConverter {
     }
 
     private static void putCodesMeanings(HashMap<Integer, String> codes){
-        codes.put(200, "thunderstorm with rain");
-        codes.put(201, "thunderstorm with rain");
-        codes.put(202, "thunderstorm with heavy rain");
-        codes.put(210, "light thunderstorm");
-        codes.put(211, "thunderstorm");
-        codes.put(212, "heavy thunderstorm");
-        codes.put(221, "ragged thunderstorm");
-        codes.put(230, "thunderstorm with drizzle");
-        codes.put(231, "thunderstorm with drizzle");
-        codes.put(232, "thunderstorm with drizzle");
-        codes.put(300, "drizzle");
-        codes.put(301, "drizzle");
-        codes.put(302, "heavy drizzle");
-        codes.put(310, "drizzle rain");
-        codes.put(311, "drizzle rain");
-        codes.put(312, "rain");
-        codes.put(313, "rain and drizzle");
-        codes.put(314, "heavy rain and drizzle");
-        codes.put(321, "drizzle");
-        codes.put(500, "light rain");
-        codes.put(501, "moderate rain");
-        codes.put(502, "heavy intensity rain");
-        codes.put(503, "very heavy rain");
-        codes.put(504, "extreme rain");
-        codes.put(511, "freezing rain");
-        codes.put(520, "light rain");
-        codes.put(521, "shower rain");
-        codes.put(522, "heavy rain");
-        codes.put(531, "ragged rain");
-        codes.put(600, "light snow");
-        codes.put(601, "snow");
-        codes.put(602, "heavy snow");
-        codes.put(611, "sleet");
-        codes.put(612, "sleet");
-        codes.put(615, "light rain and snow");
-        codes.put(616, "rain and snow");
-        codes.put(620, "light snow");
-        codes.put(621, "snow");
-        codes.put(622, "heavy snow");
-        codes.put(701, "mist");
-        codes.put(711, "smoke");
-        codes.put(721, "haze");
-        codes.put(731, "sand, dust whirls");
-        codes.put(741, "fog");
-        codes.put(751, "sand");
-        codes.put(761, "dust");
-        codes.put(762, "volcanic ash");
-        codes.put(771, "squalls");
-        codes.put(781, "tornado");
-        codes.put(800, "clear sky");
-        codes.put(801, "few clouds");
-        codes.put(802, "cloudy");
-        codes.put(803, "cloudy");
-        codes.put(804, "cloudy");
-        codes.put(900, "tornado");
-        codes.put(901, "tropical storm");
-        codes.put(902, "hurricane");
-        codes.put(903, "cold");
-        codes.put(904, "hot");
-        codes.put(905, "windy");
-        codes.put(906, "hail");
-        codes.put(950, "setting");
-        codes.put(951, "calm");
-        codes.put(952, "light breeze");
-        codes.put(953, "gentle breeze");
-        codes.put(954, "moderate breeze");
-        codes.put(955, "fresh breeze");
-        codes.put(956, "strong breeze");
-        codes.put(957, "high wind, near gale");
-        codes.put(958, "gale");
-        codes.put(959, "severe gale");
-        codes.put(960, "storm");
-        codes.put(961, "violent storm");
-        codes.put(962, "hurricane");
+        codes.put(200, "It is a fucking thunderstorm with rain outside");
+        codes.put(201, "It is a fucking thunderstorm with rain outside");
+        codes.put(202, "It is a fucking thunderstorm with heavy rain outside");
+        codes.put(210, "It is a fucking light thunderstorm outside");
+        codes.put(211, "It is a fucking thunderstorm outside");
+        codes.put(212, "It is a fucking heavy thunderstorm outside");
+        codes.put(221, "It is a fucking raging thunderstorm outside");
+        codes.put(230, "It is a fucking thunderstorm with a drizzle outside");
+        codes.put(231, "It is fucking thunderstorm with a drizzle outside");
+        codes.put(232, "It is a fucking thunderstorm with a drizzle outside");
+        codes.put(300, "It is fucking drizzling outside");
+        codes.put(301, "It is fucking drizzling outside");
+        codes.put(302, "It is heavily fucking drizzling outside");
+        codes.put(310, "It is fucking drizzling rain outside");
+        codes.put(311, "It is fucking drizzling rain outside");
+        codes.put(312, "It is fucking raining outside");
+        codes.put(313, "It is fucking raining and drizzling outside");
+        codes.put(314, "It is heavily fucking raining and drizzling outside");
+        codes.put(321, "It is fucking drizzling outside");
+        codes.put(500, "It is lightly fucking raining outside");
+        codes.put(501, "It is moderately fucking raining outside");
+        codes.put(502, "It is fucking heavy intensity rain outside");
+        codes.put(503, "It is fucking  rain outside");
+        codes.put(504, "It is fucking extreme rain outside");
+        codes.put(511, "It is fucking freezing rain outside");
+        codes.put(520, "It is lightly fucking raining outside");
+        codes.put(521, "It is a fucking shower rain outside");
+        codes.put(522, "It is fucking heavy rain outside");
+        codes.put(531, "It is fucking ragged rain outside");
+        codes.put(600, "It is lightly fucking snowing outside");
+        codes.put(601, "It is fucking snowing outside");
+        codes.put(602, "It is heavily fucking snowing outside");
+        codes.put(611, "It is fucking sleet outside");
+        codes.put(612, "It is fucking sleet outside");
+        codes.put(615, "It is lightly fucking raining and snowing outside");
+        codes.put(616, "It is heavily fucking raining and snowing outside");
+        codes.put(620, "It is lightly fucking snowing outside");
+        codes.put(621, "It is fucking snowing outside");
+        codes.put(622, "It is fucking heavy snow outside");
+        codes.put(701, "It is fucking misty outside");
+        codes.put(711, "It is fucking smoky outside");
+        codes.put(721, "It is fucking hazy outside");
+        codes.put(731, "It is fucking sandy, dust whirls outside");
+        codes.put(741, "It is fucking fogy outside");
+        codes.put(751, "It is fucking sand outside");
+        codes.put(761, "It is fucking dusty outside");
+        codes.put(762, "It is fucking volcanic ash outside");
+        codes.put(771, "It is fucking squalls outside");
+        codes.put(781, "It is a fucking tornado outside");
+        codes.put(800, "It is fucking clear sky outside");
+        codes.put(801, "It is fucking few clouds outside");
+        codes.put(802, "It is fucking cloudy outside");
+        codes.put(803, "It is fucking cloudy outside");
+        codes.put(804, "It is fucking cloudy outside");
+        codes.put(900, "It is a fucking tornado outside");
+        codes.put(901, "It is a fucking tropical storm outside");
+        codes.put(902, "It is a fucking hurricane outside");
+        codes.put(903, "It is fucking cold outside");
+        codes.put(904, "It is fucking hot outside");
+        codes.put(905, "It is fucking windy outside");
+        codes.put(906, "It is fucking hail outside");
+        codes.put(950, "It is fucking setting outside");
+        codes.put(951, "It is fucking calm outside");
+        codes.put(952, "It is a fucking light breeze outside");
+        codes.put(953, "It is a fucking gentle breeze outside");
+        codes.put(954, "It is a fucking moderate breeze outside");
+        codes.put(955, "It is a fucking fresh breeze outside");
+        codes.put(956, "It is a fucking strong breeze outside");
+        codes.put(957, "It is a fucking high wind, near gale outside");
+        codes.put(958, "It is a fucking gale outside");
+        codes.put(959, "It is a fucking severe gale outside");
+        codes.put(960, "It is fucking stormy outside");
+        codes.put(961, "It is violently fucking stormy outside");
+        codes.put(962, "It is a fucking hurricane outside");
     }
 
 }

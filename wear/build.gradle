@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 
-
 android {
     compileSdkVersion 20
     buildToolsVersion "20.0.0"
@@ -9,8 +8,8 @@ android {
         applicationId "pl.tajchert.swear"
         minSdkVersion 20
         targetSdkVersion 20
-        versionCode 5
-        versionName "0.5"
+        versionCode 7
+        versionName "0.7"
     }
     buildTypes {
         release {
