@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.wearable.view.WatchViewStub;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -39,14 +40,19 @@ public class ActivityWatchface extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        swearContainer = (AutoSizeTextView) findViewById(R.id.TextViewSwearContainer);
         refreshCircle = (ImageView) findViewById(R.id.refreshCircle);
-        refreshAnim = AnimationUtils.loadAnimation(this, R.anim.refresh_animation);
 
-        if(refreshAnim != null){
-            refreshAnimation(refreshAnim, ActivityWatchface.this.getString(R.string.swear_null));
-        }
-
+        final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
+        stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
+            @Override
+            public void onLayoutInflated(WatchViewStub stub) {
+                swearContainer = (AutoSizeTextView) stub.findViewById(R.id.TextViewSwearContainer);
+                refreshAnim = AnimationUtils.loadAnimation(ActivityWatchface.this, R.anim.refresh_animation);
+                if(refreshAnim != null){
+                    refreshAnimation(refreshAnim, ActivityWatchface.this.getString(R.string.swear_null));
+                }
+            }
+        });
         dataChangedIntentFilter = new IntentFilter(Tools.DATA_CHANGED_ACTION);
         sendNotificationToMobile();
 
@@ -55,7 +61,7 @@ public class ActivityWatchface extends Activity {
             public void onReceive(Context context, Intent intent) {
                 if (Tools.DATA_CHANGED_ACTION.equals(intent.getAction())) {
                     String swearText = ActivityWatchface.this.getSharedPreferences(Tools.PREFS, MODE_PRIVATE).getString(Tools.PREFS_KEY_SWEAR_TEXT, "got null");
-                    if(swearText == null){
+                    if(swearText == null || swearContainer == null){
                         return;
                     }
                     if(refreshAnim != null && !swearContainer.getText().equals(swearText)){
@@ -90,8 +96,11 @@ public class ActivityWatchface extends Activity {
     }
 
     private boolean timeToRefresh(){
-        if(swearContainer != null && swearContainer.getText() != null && swearContainer.getText().equals(ActivityWatchface.this.getString(R.string.swear_null)) || swearContainer.getText().equals(ActivityWatchface.this.getString(R.string.swear_null))){
-            return true;
+        if(swearContainer != null && swearContainer.getText() != null){
+            if( swearContainer.getText().equals(ActivityWatchface.this.getString(R.string.swear_null)) || swearContainer.getText().equals(ActivityWatchface.this.getString(R.string.swear_null))){
+                return true;
+            }
+
         }
         return Calendar.getInstance().getTimeInMillis() - ActivityWatchface.this.getSharedPreferences(Tools.PREFS, MODE_PRIVATE).getLong(Tools.PREFS_KEY_TIME_LAST_UPDATE, 0) > (Tools.REFRESH_INTERVAL);
     }

@@ -1,35 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent" >
-
-    <TextClock
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:textSize="23sp"
-        android:layout_marginEnd="4dp"
-        android:fontFamily="sans-serif-condensed"
-        android:textStyle="bold"
-        />
-
-    <pl.tajchert.swear.AutoSizeTextView
-        android:id="@+id/TextViewSwearContainer"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:fontFamily="sans-serif-condensed"
-        android:textStyle="bold"
-        android:text="@string/swear_initial_value"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="5dp"
-        android:textSize="500sp"
-        android:textColor="@android:color/white"
-        android:layout_alignParentTop="true" />
+    <android.support.wearable.view.WatchViewStub
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/watch_view_stub"
+        app:rectLayout="@layout/clock_square"
+        app:roundLayout="@layout/clock_round"/>
 
     <ImageView
         android:layout_width="fill_parent"
@@ -40,5 +20,4 @@
         android:visibility="gone"
         android:contentDescription="@string/app_name"/>
 
-
-</RelativeLayout>
+</FrameLayout>
