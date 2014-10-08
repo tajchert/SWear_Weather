@@ -26,7 +26,6 @@
             <meta-data
                 android:name="com.google.android.clockwork.home.preview"
                 android:resource="@drawable/screen_wear_sample" />
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="com.google.android.clockwork.home.category.HOME_BACKGROUND" />
@@ -34,6 +33,22 @@
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ActivityWatchfaceRound"
+            android:allowEmbedded="true"
+            android:exported="true"
+            android:label="@string/app_watchface_name_round"
+            android:taskAffinity=""
+            android:theme="@android:style/Theme.DeviceDefault.NoActionBar" >
+            <meta-data
+                android:name="com.google.android.clockwork.home.preview"
+                android:resource="@drawable/screen_wear_sample_round" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="com.google.android.clockwork.home.category.HOME_BACKGROUND" />
             </intent-filter>
         </activity>
 

@@ -3,6 +3,7 @@
 
     <string name="app_name">SWear</string>
     <string name="app_watchface_name">SWear</string>
+    <string name="app_watchface_name_round">SWear Round</string>
 
     <!-- This is voice command at the same time -->
     <string name="swear_null"> Getting location and weather data.</string>
