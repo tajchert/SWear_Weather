@@ -121,7 +121,7 @@ public class WeatherToTextConverter {
         codes.put(954, "It is moderately fucking breezy outside");
         codes.put(955, "It is freshly fucking breezy outside");
         codes.put(956, "It is really fucking breezy outside");
-        codes.put(957, "Is is nearly fucking gale-force windy outside");
+        codes.put(957, "It is nearly fucking gale-force windy outside");
         codes.put(958, "It is fucking gale-force windy outside");
         codes.put(959, "It is severely fucking gale-force windy outside");
         codes.put(960, "It is fucking storming outside");
