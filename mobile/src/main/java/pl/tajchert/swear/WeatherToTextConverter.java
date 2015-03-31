@@ -43,15 +43,6 @@ public class WeatherToTextConverter {
         return response;
     }
 
-    private static String getTemperatureText(Context context, double temp){
-        if( temp < 0 ){
-            return context.getString(R.string.swear_text_cold);
-        } else if ( temp > 28 ){
-            return context.getString(R.string.swear_text_hot);
-        }
-        return "";
-    }
-
     private static void putCodesMeanings(HashMap<Integer, String> codes){
         codes.put(200, "It is a fucking thunderstorm with rain outside");
         codes.put(201, "It is a fucking thunderstorm with rain outside");

@@ -1,0 +1,133 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/material_primary_most_dark_color"
+    tools:context=".MainActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin">
+
+
+            <RelativeLayout
+                android:id="@+id/topLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="100dp"
+                android:layout_centerHorizontal="true">
+
+                <ImageView
+                    android:id="@+id/imageViewIcon"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_weather" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/imageViewIcon"
+                    android:ellipsize="none"
+                    android:id="@+id/text_plus_one"
+                    android:fontFamily="sans-serif"
+                    android:singleLine="true"
+                    android:text="+"
+                    android:layout_margin="8dp"
+                    android:textColor="#fff"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+                <ImageView
+                    android:id="@+id/imageViewIconFck"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/text_plus_one"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_fck" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/imageViewIconFck"
+                    android:ellipsize="none"
+                    android:id="@+id/text_plus_two"
+                    android:fontFamily="sans-serif"
+                    android:singleLine="true"
+                    android:text="+"
+                    android:layout_margin="5dp"
+                    android:textColor="#fff"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+                <ImageView
+                    android:id="@+id/imageViewIconWear"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_toEndOf="@+id/text_plus_two"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_wear" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/imageViewIconWear"
+                    android:layout_centerVertical="true"
+                    android:ellipsize="none"
+                    android:id="@+id/text_equal"
+                    android:fontFamily="sans-serif"
+                    android:singleLine="true"
+                    android:text="="
+                    android:layout_margin="5dp"
+                    android:textColor="#fff"
+                    android:textAppearance="@android:style/TextAppearance.DeviceDefault.Large" />
+
+                <ImageView
+                    android:id="@+id/imageViewWearArticle"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_toEndOf="@+id/text_equal"
+                    android:layout_centerVertical="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_app" />
+
+            </RelativeLayout>
+
+
+
+
+            <TextView
+                android:id="@+id/textViewDescription"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/topLayout"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:textColor="#fff"
+                android:fontFamily="sans-serif-light"
+                android:text="@string/main_activity_description"
+                android:textAppearance="@android:style/TextAppearance.Medium" />
+
+            <Button
+                android:id="@+id/buttonAndroidWear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textViewDescription"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="30dp"
+                android:text="What is AndroidWear?" />
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>
