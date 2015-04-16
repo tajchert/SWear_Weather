@@ -5,6 +5,6 @@
     <string name="swear_text_awesome">"It is fucking awesome</string>
 
     <string name="swear_error">"Fuck, no location or no Internet.</string>
-    <string name="main_activity_description">App downloads automatically (each 24h) or manually (pull to refresh) top articles from sites such as: Medium.com, Vox.com (more to come) and displays them on your smartwatch (Android Wear).\n\nIt is perfect for everyday commuting!\n\nEach article you can open on the phone or save it to Pocket or any other app for reading it later on.</string>
+    <string name="main_activity_description">App is designed only for Android Wear (smartwatch) devices as a watchface for them.\n\nMake sure to have one to use it.</string>
 
 </resources>
