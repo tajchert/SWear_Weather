@@ -6,6 +6,7 @@ public class Tools {
     public static final String PREFS = "pl.tajchert.swear";
     public static final String PREFS_KEY_SWEAR_TEXT = "pl.tajchert.swear.sweartext";
     public static final String PREFS_KEY_TIME_LAST_UPDATE = "pl.tajchert.swear.timeupdate";
+    public static final String MESSAGE_PATH_MAIN = "pl.tajchert.swear.message";
 
     public static final String WEAR_KEY_SWEAR_TEXT = "swear_text";
     public static final String WEAR_PATH = "/swear_data";
