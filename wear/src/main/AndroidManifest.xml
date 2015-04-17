@@ -16,39 +16,40 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity
-            android:name=".ActivityWatchface"
-            android:allowEmbedded="true"
-            android:exported="true"
+        <service
+            android:name=".WatchfaceBasicService"
             android:label="@string/app_watchface_name"
+            android:allowEmbedded="true"
             android:taskAffinity=""
-            android:theme="@android:style/Theme.DeviceDefault.NoActionBar" >
+            android:permission="android.permission.BIND_WALLPAPER" >
             <meta-data
-                android:name="com.google.android.clockwork.home.preview"
+                android:name="android.service.wallpaper"
+                android:resource="@xml/watch_face" />
+            <meta-data
+                android:name="com.google.android.wearable.watchface.preview"
                 android:resource="@drawable/screen_wear_sample" />
+            <meta-data
+                android:name="com.google.android.wearable.watchface.preview_circular"
+                android:resource="@drawable/screen_wear_sample_round" />
+            <meta-data
+                android:name="com.google.android.wearable.watchface.companionConfigurationAction"
+                android:value="com.swarmnyc.watchfaces.CONFIG_RUNNER" />
+            <meta-data
+                android:name="com.google.android.wearable.watchface.wearableConfigurationAction"
+                android:value="com.example.android.wearable.watchface.CONFIG_DIGITAL" />
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.google.android.clockwork.home.category.HOME_BACKGROUND" />
+                <action android:name="android.service.wallpaper.WallpaperService" />
+                <category android:name="com.google.android.wearable.watchface.category.WATCH_FACE" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        </service>
 
         <activity
-            android:name=".ActivityWatchfaceRound"
-            android:allowEmbedded="true"
-            android:exported="true"
-            android:label="@string/app_watchface_name_round"
-            android:taskAffinity=""
-            android:theme="@android:style/Theme.DeviceDefault.NoActionBar" >
-            <meta-data
-                android:name="com.google.android.clockwork.home.preview"
-                android:resource="@drawable/screen_wear_sample_round" />
+            android:name=".WatchfaceConfigActivity"
+            android:label="@string/digital_config_name">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="com.google.android.clockwork.home.category.HOME_BACKGROUND" />
+                <action android:name="com.example.android.wearable.watchface.CONFIG_DIGITAL" />
+                <category android:name="com.google.android.wearable.watchface.category.WEARABLE_CONFIGURATION" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
