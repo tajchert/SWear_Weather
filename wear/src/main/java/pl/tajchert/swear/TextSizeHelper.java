@@ -10,7 +10,12 @@ import android.util.TypedValue;
  * Created by tajchert on 17.04.15.
  */
 public class TextSizeHelper {
+    public static long timeStart;
     public static float getAutofitTextSize(CharSequence text, TextPaint paint, float targetWidth, int maxLines, float low, float high, float precision, DisplayMetrics displayMetrics) {
+        if(timeStart - System.currentTimeMillis() > 500) {
+            //to avoid infinitive loops
+            return low;
+        }
         float mid = (low + high) / 2.0f;
         int lineCount = 1;
         StaticLayout layout = null;

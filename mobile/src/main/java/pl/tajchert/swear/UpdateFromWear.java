@@ -25,6 +25,14 @@ public class UpdateFromWear extends WearableListenerService {
             Log.d(TAG, "onMessageReceived our text: " + text);
             Intent mIntent = new Intent(this, UpdateService.class);
             UpdateFromWear.this.startService(mIntent);
+        } else if(Tools.MESSAGE_PATH_MAIN.equals(messageEvent.getPath())) {
+            String text = new String(messageEvent.getData());
+            if("STOP".equals(text)){
+                //Stop
+            }
+            Log.d(TAG, "onMessageReceived our text: " + text);
+            Intent mIntent = new Intent(this, UpdateService.class);
+            UpdateFromWear.this.startService(mIntent);
         }
     }
 }

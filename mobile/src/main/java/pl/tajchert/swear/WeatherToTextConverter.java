@@ -25,8 +25,7 @@ public class WeatherToTextConverter {
     private static String getTextByCode(int code){
         HashMap<Integer, String> codes = new HashMap<Integer, String>();
         putCodesMeanings(codes);
-        return "It is lightly fucking raining and snowing.";
-        //return codes.get(code) + ".";
+        return codes.get(code) + ".";
     }
 
     private static String checkForAwesomeConditions(Context context, WeatherAPI weatherNow, String response){
