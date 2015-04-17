@@ -43,16 +43,6 @@
             </intent-filter>
         </service>
 
-        <activity
-            android:name=".WatchfaceConfigActivity"
-            android:label="@string/digital_config_name">
-            <intent-filter>
-                <action android:name="com.example.android.wearable.watchface.CONFIG_DIGITAL" />
-                <category android:name="com.google.android.wearable.watchface.category.WEARABLE_CONFIGURATION" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
         <service android:name=".DataLayerListenerService" >
             <intent-filter>
                 <action android:name="com.google.android.gms.wearable.BIND_LISTENER" />
