@@ -5,6 +5,7 @@ import android.appwidget.AppWidgetManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.AsyncTask;
@@ -23,6 +24,7 @@ import com.google.android.gms.wearable.Wearable;
 
 import java.util.Calendar;
 
+import de.greenrobot.event.EventBus;
 import pl.tajchert.swear.api.IWeatherAPI;
 import pl.tajchert.swear.api.WeatherAPI;
 import pl.tajchert.swear.widget.WidgetInstance;
@@ -93,14 +95,23 @@ public class UpdateService extends Service {
         }
         @Override
         protected void onPostExecute(String result) {
-            UpdateService.this.getSharedPreferences(Tools.PREFS, Context.MODE_PRIVATE).edit().putString(Tools.PREFS_KEY_SWEAR_TEXT, result).commit();
-            UpdateService.this.getSharedPreferences(Tools.PREFS, Context.MODE_PRIVATE).edit().putLong(Tools.PREFS_KEY_TIME_LAST_UPDATE, System.currentTimeMillis()).commit();
-            updateWidgets();
             if(result == null){
-                sendData(Tools.WEAR_KEY_SWEAR_TEXT, UpdateService.this.getString(R.string.swear_error));
-                return;
+                result = UpdateService.this.getString(R.string.swear_error);
             }
+            //Widgets
+            SharedPreferences.Editor edit = UpdateService.this.getSharedPreferences(Tools.PREFS, Context.MODE_PRIVATE).edit();
+            edit.putString(Tools.PREFS_KEY_SWEAR_TEXT, result).commit();
+            edit.putLong(Tools.PREFS_KEY_TIME_LAST_UPDATE, System.currentTimeMillis()).commit();
+            updateWidgets();
+
+            //Activity
+            EventBus.getDefault().post(result);
+
+            //Wear
             sendData(Tools.WEAR_KEY_SWEAR_TEXT, result);
+
+            //TV?
+            //Auto?
         }
         @Override
         protected void onPreExecute() {
