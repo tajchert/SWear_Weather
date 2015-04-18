@@ -17,4 +17,10 @@ public class Tools {
     public static final String WEAR_ACTION_UPDATE = "please_update_swear_text";
 
     public static final int REFRESH_INTERVAL = 1800000;//30min
+
+
+    //Widget
+
+    public static final String TIME_WIDGET_ALL_UPDATES = "pl.tajchert.swear.widget.lastupdate";
+
 }

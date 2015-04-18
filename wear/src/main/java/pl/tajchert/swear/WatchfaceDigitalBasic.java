@@ -75,7 +75,7 @@ public class WatchfaceDigitalBasic extends CanvasWatchFaceService {
             setWatchFaceStyle(new WatchFaceStyle.Builder(WatchfaceDigitalBasic.this)
                     .setCardPeekMode(WatchFaceStyle.PEEK_MODE_SHORT)
                     .setShowSystemUiTime(true)
-                    .setHotwordIndicatorGravity(Gravity.TOP | Gravity.CENTER_HORIZONTAL)
+                    .setHotwordIndicatorGravity(Gravity.TOP | Gravity.RIGHT)
                     .setStatusBarGravity(Gravity.RIGHT | Gravity.TOP)
                     .setBackgroundVisibility(WatchFaceStyle.BACKGROUND_VISIBILITY_INTERRUPTIVE)
                     .build());

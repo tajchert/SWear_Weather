@@ -24,6 +24,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.0.0'
     compile 'com.google.android.gms:play-services-wearable:+'
     compile 'com.squareup.retrofit:retrofit:1.6.1'
+    compile 'me.grantland:autofittextview:0.2.1'
     wearApp project(':wear')
     compile project(':common')
 }

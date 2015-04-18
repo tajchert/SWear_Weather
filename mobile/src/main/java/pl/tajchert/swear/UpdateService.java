@@ -1,6 +1,8 @@
 package pl.tajchert.swear;
 
 import android.app.Service;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
@@ -23,6 +25,7 @@ import java.util.Calendar;
 
 import pl.tajchert.swear.api.IWeatherAPI;
 import pl.tajchert.swear.api.WeatherAPI;
+import pl.tajchert.swear.widget.WidgetInstance;
 import pl.tajchert.swearcommon.Tools;
 import retrofit.Callback;
 import retrofit.RestAdapter;
@@ -90,12 +93,14 @@ public class UpdateService extends Service {
         }
         @Override
         protected void onPostExecute(String result) {
+            UpdateService.this.getSharedPreferences(Tools.PREFS, Context.MODE_PRIVATE).edit().putString(Tools.PREFS_KEY_SWEAR_TEXT, result).commit();
+            UpdateService.this.getSharedPreferences(Tools.PREFS, Context.MODE_PRIVATE).edit().putLong(Tools.PREFS_KEY_TIME_LAST_UPDATE, System.currentTimeMillis()).commit();
+            updateWidgets();
             if(result == null){
                 sendData(Tools.WEAR_KEY_SWEAR_TEXT, UpdateService.this.getString(R.string.swear_error));
                 return;
             }
             sendData(Tools.WEAR_KEY_SWEAR_TEXT, result);
-
         }
         @Override
         protected void onPreExecute() {
@@ -140,6 +145,14 @@ public class UpdateService extends Service {
             });
 
         }
+    }
+
+    private void updateWidgets() {
+        Intent intent = new Intent(this, WidgetInstance.class);
+        intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+        int ids[] = AppWidgetManager.getInstance(getApplication()).getAppWidgetIds(new ComponentName(getApplication(), WidgetInstance.class));
+        intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, ids);
+        sendBroadcast(intent);
     }
 
 
