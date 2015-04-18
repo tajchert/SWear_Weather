@@ -18,8 +18,10 @@ public class Widget {
     public static void updateAppWidget(String swearText, Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
         PendingIntent pendingIntent;
         RemoteViews views;
+        if(swearText == null|| swearText.length() == 0) {
+            swearText = "No access to location or Internet.";
+        }
         views = new RemoteViews(context.getPackageName(), R.layout.widget_basic_medium);
-        swearText = "It is severely fucking gale-force windy.";
         int textSize = (int) Math.floor(35-(swearText.length()*1.2-15));
         if(swearText.length() > 25) {
             textSize = 20;
