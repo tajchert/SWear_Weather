@@ -12,8 +12,8 @@ import pl.tajchert.swear.R;
 /**
  * Created by tajchert on 18.04.15.
  */
-public class Widget {
-    private static final String TAG = "Widget";
+public class WidgetManager {
+    private static final String TAG = "WidgetManager";
 
     public static void updateAppWidget(String swearText, Context context, AppWidgetManager appWidgetManager, int appWidgetId) {
         PendingIntent pendingIntent;
@@ -28,13 +28,13 @@ public class Widget {
         }
         views.setFloat(R.id.textView, "setTextSize", textSize);
         views.setTextViewText(R.id.textView, swearText);
-        pendingIntent = PendingIntent.getActivity(context, 0, getWeatherAppIntent(context), PendingIntent.FLAG_UPDATE_CURRENT);
-        views.setOnClickPendingIntent(R.id.mainLayout, pendingIntent);
-        views.setOnClickPendingIntent(R.id.textView, pendingIntent);
-
+        Intent weatherIntent = getWeatherAppIntent(context);
+        if(weatherIntent != null) {
+            pendingIntent = PendingIntent.getActivity(context, 0, weatherIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+            views.setOnClickPendingIntent(R.id.mainLayout, pendingIntent);
+            views.setOnClickPendingIntent(R.id.textView, pendingIntent);
+        }
         appWidgetManager.updateAppWidget(appWidgetId, views);
-
-
     }
 
     public static Intent getWeatherAppIntent(Context context) {

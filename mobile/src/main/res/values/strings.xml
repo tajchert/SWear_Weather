@@ -5,6 +5,4 @@
     <string name="swear_text_awesome">"It is fucking awesome</string>
 
     <string name="swear_error">"Fuck, no location or no Internet.</string>
-    <string name="main_activity_description">App is designed only for Android Wear (smartwatch) devices as a watchface for them.\n\nMake sure to have one to use it.</string>
-
 </resources>

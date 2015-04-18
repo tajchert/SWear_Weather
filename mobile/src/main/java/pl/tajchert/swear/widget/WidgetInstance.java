@@ -34,7 +34,7 @@ public class WidgetInstance extends AppWidgetProvider {
         }
         super.onUpdate(context, appWidgetManager, appWidgetIds);
         for(int widgetId: appWidgetIds) {
-            Widget.updateAppWidget(swearText, context, appWidgetManager, widgetId);
+            WidgetManager.updateAppWidget(swearText, context, appWidgetManager, widgetId);
         }
     }
 
