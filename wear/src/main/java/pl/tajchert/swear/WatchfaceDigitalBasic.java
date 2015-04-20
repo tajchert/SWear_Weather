@@ -74,6 +74,7 @@ public class WatchfaceDigitalBasic extends CanvasWatchFaceService {
 
             setWatchFaceStyle(new WatchFaceStyle.Builder(WatchfaceDigitalBasic.this)
                     .setCardPeekMode(WatchFaceStyle.PEEK_MODE_SHORT)
+                    .setAmbientPeekMode(WatchFaceStyle.AMBIENT_PEEK_MODE_HIDDEN)
                     .setShowSystemUiTime(true)
                     .setHotwordIndicatorGravity(Gravity.TOP | Gravity.RIGHT)
                     .setStatusBarGravity(Gravity.RIGHT | Gravity.TOP)
@@ -86,7 +87,7 @@ public class WatchfaceDigitalBasic extends CanvasWatchFaceService {
             mYOffsetText = resources.getDimension(R.dimen.digital_y_offset_text);
 
             mBackgroundPaint = new Paint();
-            mBackgroundPaint.setColor(resources.getColor(R.color.digital_background));
+            mBackgroundPaint.setColor(Color.BLACK);
 
             mSwearPaint = new TextPaint();
             mSwearPaint.setTextSize(60);

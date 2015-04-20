@@ -1,11 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="digital_am_pm">#aaaaa0</color>
-    <color name="digital_colons">#aaaaa0</color>
-    <color name="config_activity_background">#ffffff</color>
-    <color name="config_activity_header_text_color">#959595</color>
-    <color name="color_item_label_color">#000000</color>
-    <color name="color_item_circle_border_color">#424242</color>
-    <color name="digital_background">#000000</color>
-    <color name="digital_text">#ffffff</color>
 </resources>

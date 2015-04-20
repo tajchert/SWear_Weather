@@ -2,7 +2,7 @@
 <resources>
 
     <string name="app_name">SWear Weather</string>
-    <string name="swear_text_awesome">"It is fucking awesome</string>
+    <string name="swear_text_awesome">"It is fucking awesome.</string>
 
     <string name="swear_error">"Fuck, no location or no Internet.</string>
 </resources>
