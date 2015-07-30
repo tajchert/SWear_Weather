@@ -49,6 +49,7 @@ public class UpdateService extends Service {
         return null;
     }
 
+
     private Location getLastLocation() {
         LocationManager locationManager = (LocationManager) UpdateService.this.getSystemService(Context.LOCATION_SERVICE);
         String locationProvider = LocationManager.NETWORK_PROVIDER;
