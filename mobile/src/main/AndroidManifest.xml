@@ -47,8 +47,8 @@
         </receiver>
 
         <meta-data
-            android:name="com.crashlytics.ApiKey"
-            android:value=""/>
+            android:name="io.fabric.ApiKey"
+            android:value="9ee9f6e4147e29d6bc7d347192643a4245c07f7c" />
 
         <meta-data
             android:name="com.google.android.gms.version"
