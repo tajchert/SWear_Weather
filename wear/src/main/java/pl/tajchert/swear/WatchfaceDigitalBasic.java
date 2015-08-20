@@ -28,7 +28,7 @@ import java.util.Calendar;
 import pl.tajchert.swearcommon.Tools;
 
 public class WatchfaceDigitalBasic extends CanvasWatchFaceService {
-
+    private static final String TAG = WatchfaceDigitalBasic.class.getSimpleName();
     private boolean isRound;
     private int screenWidthPX;
     private int screenHeightPX;
@@ -171,15 +171,46 @@ public class WatchfaceDigitalBasic extends CanvasWatchFaceService {
         public void onDraw(Canvas canvas, Rect bounds) {
             // Draw the background.
             canvas.drawRect(0, 0, bounds.width(), bounds.height(), mBackgroundPaint);
-            String swearText = WatchfaceDigitalBasic.this.getSharedPreferences(Tools.PREFS, MODE_PRIVATE).getString(Tools.PREFS_KEY_SWEAR_TEXT, "got null");
+            String swearText = WatchfaceDigitalBasic.this.getSharedPreferences(Tools.PREFS, MODE_PRIVATE).getString(Tools.PREFS_KEY_SWEAR_TEXT, "Please wait...");
             if(swearText == null){
                 return;
             }
-            TextSizeHelper.timeStart = System.currentTimeMillis();
             if(isRound) {
-                mSwearPaint.setTextSize(TextSizeHelper.getAutofitTextSize(swearText, mSwearPaint, (screenWidthPX - 130), 2, 30, 55, 5, WatchfaceDigitalBasic.this.getResources().getDisplayMetrics()));
+                if(swearText.length() < 10) {
+                    mSwearPaint.setTextSize(48);
+                } else if(swearText.length() >= 10 && swearText.length() < 15) {
+                    mSwearPaint.setTextSize(45);
+                } else if(swearText.length() >= 15 && swearText.length() < 20) {
+                    mSwearPaint.setTextSize(40);
+                } else if(swearText.length() >= 20 && swearText.length() < 25) {
+                    mSwearPaint.setTextSize(38);
+                } else if(swearText.length() >= 25 && swearText.length() < 30) {
+                    mSwearPaint.setTextSize(35);
+                } else if(swearText.length() >= 30 && swearText.length() < 35) {
+                    mSwearPaint.setTextSize(33);
+                } else if(swearText.length() >= 35) {
+                    mSwearPaint.setTextSize(30);
+                } else {
+                    mSwearPaint.setTextSize(30);
+                }
             } else {
-                mSwearPaint.setTextSize(TextSizeHelper.getAutofitTextSize(swearText, mSwearPaint, screenWidthPX, 3, 35, 65, 5, WatchfaceDigitalBasic.this.getResources().getDisplayMetrics()));
+                if(swearText.length() < 10) {
+                    mSwearPaint.setTextSize(48);
+                } else if(swearText.length() >= 10 && swearText.length() < 15) {
+                    mSwearPaint.setTextSize(45);
+                } else if(swearText.length() >= 15 && swearText.length() < 20) {
+                    mSwearPaint.setTextSize(40);
+                } else if(swearText.length() >= 20 && swearText.length() < 25) {
+                    mSwearPaint.setTextSize(38);
+                } else if(swearText.length() >= 25 && swearText.length() < 30) {
+                    mSwearPaint.setTextSize(35);
+                } else if(swearText.length() >= 30 && swearText.length() < 35) {
+                    mSwearPaint.setTextSize(33);
+                } else if(swearText.length() >= 35) {
+                    mSwearPaint.setTextSize(30);
+                } else {
+                    mSwearPaint.setTextSize(30);
+                }
             }
 
             StaticLayout layout = new StaticLayout(swearText, mSwearPaint, screenWidthPX, Layout.Alignment.ALIGN_CENTER, 1.0f, 0, false);

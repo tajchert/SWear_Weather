@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 
+import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.data.FreezableUtils;
 import com.google.android.gms.wearable.DataEvent;
@@ -14,29 +15,35 @@ import com.google.android.gms.wearable.Wearable;
 import com.google.android.gms.wearable.WearableListenerService;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import pl.tajchert.swearcommon.Tools;
 
 
 public class DataLayerListenerService extends WearableListenerService {
-
-    private static final String TAG = DataLayerListenerService.class.getSimpleName();
-    private GoogleApiClient mGoogleApiClient;
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addApi(Wearable.API)
-                .build();
-        mGoogleApiClient.connect();
-    }
+    private static final String TAG = "DataLayerService";
 
     @Override
     public void onDataChanged(DataEventBuffer dataEvents) {
         Log.d(TAG, "onDataChanged");
         final List<DataEvent> events = FreezableUtils.freezeIterable(dataEvents);
-        dataEvents.close();
+
+        if (Log.isLoggable(TAG, Log.DEBUG)) {
+            Log.d(TAG, "onDataChanged: " + dataEvents);
+        }
+        GoogleApiClient googleApiClient = new GoogleApiClient.Builder(this)
+                .addApi(Wearable.API)
+                .build();
+
+        ConnectionResult connectionResult =
+                googleApiClient.blockingConnect(30, TimeUnit.SECONDS);
+
+        if (!connectionResult.isSuccess()) {
+            Log.e(TAG, "Failed to connect to GoogleApiClient.");
+            return;
+        }
+
+        //dataEvents.close();
         for (DataEvent event : events) {
             Uri uri = event.getDataItem().getUri();
             String path = uri.getPath();
