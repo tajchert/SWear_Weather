@@ -66,12 +66,13 @@ public class UpdateService extends Service {
                 .setEndpoint("http://api.openweathermap.org/data/2.5/")
                 .build();
         IWeatherAPI weatherService = restAdapter.create(IWeatherAPI.class);
-        weatherService.getWeather(location.getLatitude(), location.getLongitude(), new Callback<WeatherAPI>() {
+        weatherService.getWeather(Double.parseDouble(String.format("%.1f", location.getLatitude())), Double.parseDouble(String.format("%.1f", location.getLongitude())), "93a83c9ecade00fc1315d6008fcd14c4", new Callback<WeatherAPI>() {
             @Override
             public void success(WeatherAPI weatherAPIs, Response response) {
                 Log.d(TAG, "Success with downloading weather");
                 new SendWeatherTextTask().execute(weatherAPIs);
             }
+
             @Override
             public void failure(RetrofitError retrofitError) {
                 Log.d(TAG, "Failure: " + retrofitError.toString());
@@ -96,7 +97,7 @@ public class UpdateService extends Service {
         }
         @Override
         protected void onPostExecute(String result) {
-            if(result == null){
+            if(result == null || "".equals(result)){
                 result = UpdateService.this.getString(R.string.swear_error);
             }
             //Widgets
