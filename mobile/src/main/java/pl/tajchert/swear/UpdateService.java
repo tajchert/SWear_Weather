@@ -66,7 +66,7 @@ public class UpdateService extends Service {
                 .setEndpoint("http://api.openweathermap.org/data/2.5/")
                 .build();
         IWeatherAPI weatherService = restAdapter.create(IWeatherAPI.class);
-        weatherService.getWeather(Double.parseDouble(String.format("%.1f", location.getLatitude())), Double.parseDouble(String.format("%.1f", location.getLongitude())), "93a83c9ecade00fc1315d6008fcd14c4", new Callback<WeatherAPI>() {
+        weatherService.getWeather(Double.parseDouble(String.format("%.1f", location.getLatitude()).replace(",",".")), Double.parseDouble(String.format("%.1f", location.getLongitude()).replace(",",".")), "93a83c9ecade00fc1315d6008fcd14c4", new Callback<WeatherAPI>() {
             @Override
             public void success(WeatherAPI weatherAPIs, Response response) {
                 Log.d(TAG, "Success with downloading weather");

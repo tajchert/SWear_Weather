@@ -93,7 +93,7 @@ public class WeatherToTextConverter {
         codes.put(762, "There is fucking volcanic ash");
         codes.put(771, "There are fucking squalls");
         codes.put(781, "There is a fucking tornado");
-        codes.put(800, "It is fucking awesome");
+        codes.put(800, "It is fucking clear sky");
         codes.put(801, "It is fucking barely cloudy");
         codes.put(802, "It is fucking cloudy");
         codes.put(803, "It is fucking cloudy");
